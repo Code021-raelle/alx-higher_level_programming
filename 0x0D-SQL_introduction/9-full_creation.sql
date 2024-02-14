@@ -1,4 +1,5 @@
--- This script creates the 'second_table' table if it does not already exist and inserts multiple rows.
+-- This script creates the 'second_table' table
+-- if it does not already exist and inserts multiple rows.
 
 CREATE TABLE IF NOT EXISTS second_table (
     id INT,
