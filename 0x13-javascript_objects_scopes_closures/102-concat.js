@@ -18,7 +18,7 @@ fs.readFile(sourceFile1, 'utf8', (err, data1) => {
       return;
     }
 
-    const concatenatedData = data1.trim() + '\n' + data.trim();
+    const concatenatedData = data1.trim() + '\n' + data2.trim();
 
     fs.writeFile(destinationFile, concatenatedData, (err) => {
       if (err) {
