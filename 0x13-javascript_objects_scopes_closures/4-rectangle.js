@@ -10,18 +10,18 @@ class Rectangle {
     }
   }
 
-  print() {
+  print () {
     for (let i = 0; i < this.height; i++) {
       console.log('X'.repeat(this.width));
     }
   }
 
-  rotate() {
+  rotate () {
     // Exchange width and height
     [this.width, this.height] = [this.height, this.width];
   }
 
-  double() {
+  double () {
     this.width *= 2;
     this.height *= 2;
   }

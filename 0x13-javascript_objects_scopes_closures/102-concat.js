@@ -23,7 +23,7 @@ fs.readFile(sourceFile1, 'utf8', (err, data1) => {
     fs.writeFile(destinationFile, concatenatedData, (err) => {
       if (err) {
         console.error(err);
-	return;
+        return;
       }
       console.log(`Files ${sourceFile1} and ${sourceFile2} have been concatenated into ${destinationFile}`);
     });
