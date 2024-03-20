@@ -9,7 +9,8 @@ import sys
 
 def main(user, password, db):
     # Connect to the database
-    db = MySQLdb.connect(host="localhost", port-3306, user=user, passwd=password, db=db)
+    db = MySQLdb.connect(
+            host="localhost", port=3306, user=user, passwd=password, db=db)
     cursor = db.cursor()
 
     # Execute the query to select all states, sorted by id
@@ -24,6 +25,7 @@ def main(user, password, db):
 
     # Close the database connection
     db.close()
+
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2], sys.argv[3])
