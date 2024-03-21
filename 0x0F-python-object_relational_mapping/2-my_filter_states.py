@@ -31,7 +31,7 @@ if __name__ == "__main__":
     cursor.execute(query, (state_name,))
 
     # Fetch all the rows
-    rows = cursor.fetchone()
+    rows = cursor.fetchall()
 
     # Print each row
     for row in rows:
