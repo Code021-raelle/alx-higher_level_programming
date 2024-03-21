@@ -27,8 +27,8 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Use format to create the SQL query with the user input
-    query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
-    cursor.execute(query, (state_name,))
+    cursor.execute(
+            "SELECT * FROM states WHERE name = %s ORDER BY id ASC", (state_name,))
 
     # Fetch all the rows
     rows = cursor.fetchall()
