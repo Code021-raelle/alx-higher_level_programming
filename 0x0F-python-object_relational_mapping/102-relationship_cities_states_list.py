@@ -3,7 +3,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from relationship_city import City
-from relationship_state import State
+from relationship_state import State, Base
 import sys
 
 
@@ -16,10 +16,11 @@ def main(user, password, db):
 
     session = Session()
 
-    cities = session.query(City).join(State).order_by(City.id).all()
+    ct = session.query(State).join(City).order_by(City.id).all()
 
-    for city in cities:
-        print("{}: {} -> {}".format(city.id, city.name, city.state.name))
+    for state in ct:
+        for city in state.cities:
+            print("{}: {} -> {}".format(city.id, city.name, state.name))
 
     session.close()
 
