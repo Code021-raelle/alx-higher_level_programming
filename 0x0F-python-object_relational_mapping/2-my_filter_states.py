@@ -24,6 +24,7 @@ if __name__ == "__main__":
     db = MySQLdb.connect(
             host="localhost", port=3306,
             user=username, passwd=password, db=database_name)
+
     cursor = db.cursor()
 
     # Use format to create the SQL query with the user input
@@ -32,10 +33,10 @@ if __name__ == "__main__":
             (state_name,))
 
     # Fetch all the rows
-    rows = cursor.fetchall()
+    row = cursor.fetchone()
 
     # Print each row
-    for row in rows:
+    if row:
         print(row)
 
     # Close the database connection
