@@ -21,7 +21,7 @@ def main(user, password, db):
 
     # Print each row
     for row in results:
-        print("({}, '{}')".format(row[0], row[1]))
+        print(row)
 
     # Close the database connection
     db.close()
