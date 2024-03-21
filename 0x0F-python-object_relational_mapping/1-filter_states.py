@@ -4,7 +4,7 @@ Script that lists all states with a name starting with N from the database
 htbn_0e_0_usa.
 """
 import MySQLdb
-import sys
+from sys import argv
 
 
 if __name__ == "__main__":
