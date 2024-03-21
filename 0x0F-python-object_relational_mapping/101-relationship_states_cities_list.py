@@ -2,21 +2,25 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from relationship_state import State
+from relationship_state import Base, State
 from relationship_city import City
 import sys
 
 
-def main(user, password, db):
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: {} username password database_name".format(sys.argv[0]))
+        sys.exit(1)
+
     engine = create_engine(
             'mysql+mysqldb://{}:{}@localhost/{}'.format(
-                user, password, db), pool_pre_ping=True)
+                sys.argv[1], sys.argv[2], sys.argv[3]))
 
     Session = sessionmaker(bind=engine)
 
     session = Session()
 
-    states = session.query(State).join(City).order_by(State.id, City.id).all()
+    states = session.query(State).order_by(State.id).all()
 
     for state in states:
         print("{}: {}".format(state.id, state.name))
@@ -24,7 +28,3 @@ def main(user, password, db):
             print("\t{}: {}".format(city.id, city.name))
 
     session.close()
-
-
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])

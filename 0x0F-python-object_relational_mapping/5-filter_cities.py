@@ -4,10 +4,23 @@ import MySQLdb
 import sys
 
 
-def main(user, password, db, state_name):
+if __name__ == "__main__":
+    if len(sys.argv) != 5:
+        print("Usage: {} username password database_name state_name"
+                .format(sys.argv[0]))
+        sys.exit(1)
+
+    username = sys.argv[1]
+    password = sys.argv[2]
+    database_name = sys.argv[3]
+    state_name = sys.argv[4]
+
     # Connect to the database
     db = MySQLdb.connect(
-            host="localhost", port=3306, user=user, passwd=password, db=db)
+            host="localhost", port=3306,
+            user=username, passwd=password, db=database_name)
+
+    cursor = db.cursor()
 
     # Use parameterized query to prevent SQL injection
     query = """
@@ -20,15 +33,14 @@ def main(user, password, db, state_name):
     cursor.execute(query, (state_name,))
 
     # Fetch all the rows
-    results = cursor.fetchall()
+    rows = cursor.fetchall()
+
+    cities = [row[0] for row in rows]
 
     # Print each city name
-    for row in results:
-        print(row[0])
+    if cities:
+        print(", ".join(cities))
 
     # Close the database connection
+    cursor.close()
     db.close()
-
-
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])

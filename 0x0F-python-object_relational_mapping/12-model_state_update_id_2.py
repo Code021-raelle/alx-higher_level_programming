@@ -6,24 +6,25 @@ from model_state import Base, State
 import sys
 
 
-def main(user, password, db):
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: {} username password database_name".format(sys.argv[0]))
+        sys.exit(1)
+
     engine = create_engine(
             'mysql+mysqldb://{}:{}@localhost/{}'.format(
-                user, password, db), pool_pre_ping=True)
+                sys.argv[1], sys.argv[2], sys.argv[3]))
 
     Session = sessionmaker(bind=engine)
 
     session = Session()
 
-    state = session.query(State).filter(State.id == 2).first()
+    state_to_update = session.query(State).filter_by(id=2).first()
 
-    if state is not None:
-        state.name = "New Mexico"
-
+    if state_to_update:
+        state_to_update.name = "New Mexico"
         session.commit()
+    else:
+        print("State with id=2 not found")
 
     session.close()
-
-
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])

@@ -6,11 +6,15 @@ from model_state import Base, State
 import sys
 
 
-def main(user, password, db):
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: {} username password database_name".format(sys.argv[0]))
+        sys.exit(1)
+
     # Create an engine that stores data in the local directory's
     engine = create_engine(
             'mysql+mysqldb://{}:{}@localhost/{}'.format(
-                user, password, db), pool_pre_ping=True)
+                sys.argv[1], sys.argv[2], sys.argv[3]))
 
     # Create a configured "Session" class
     Session = sessionmaker(bind=engine)
@@ -19,17 +23,13 @@ def main(user, password, db):
     session = Session()
 
     # Query the states table for the first state
-    state = session.query(State).order_by(State.id).first()
+    first_state = session.query(State).order_by(State.id).first()
 
     # Check if a state was found
-    if state is None:
-        print("Nothing")
+    if first_state:
+        print("{}: {}".format(first_state.id, first_state.name))
     else:
-        print("{}: {}".format(state.id, state.name))
+        print("Nothing")
 
     # Class the session
     session.close()
-
-
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])

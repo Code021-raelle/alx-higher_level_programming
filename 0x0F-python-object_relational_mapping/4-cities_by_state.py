@@ -4,10 +4,20 @@ import MySQLdb
 import sys
 
 
-def main(user, password, db):
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: {} username password database_name".format(sys.argv[0]))
+        sys.exit(1)
+
+    username = sys.argv[1]
+    password = sys.argv[2]
+    database_name = sys.argv[3]
+
     # Connect to the database
     db = MySQLdb.connect(
-            host="localhost", port=3306, user=user, passwd=password, db=db)
+            host="localhost", port=3306,
+            user=username, passwd=password, db=database_name)
+
     cursor = db.cursor()
 
     # Execute the query to select all cities, sorted by id and join with states
@@ -20,15 +30,12 @@ def main(user, password, db):
     cursor.execute(query)
 
     # Fetch all the rows
-    results = cursor.fetchall()
+    rows = cursor.fetchall()
 
     # Print each row
-    for row in results:
+    for row in rows:
         print(row)
 
-    # Close the database connection
+    # Close cursor and database connection
+    cursor.close()
     db.close()
-
-
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])

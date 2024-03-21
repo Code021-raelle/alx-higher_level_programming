@@ -22,10 +22,10 @@ if __name__ == "__main__":
     cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
 
     # Fetch all the rows
-    results = cursor.fetchall()
+    rows = cursor.fetchall()
 
     # Print each row
-    for row in results:
+    for row in rows:
         print(row)
 
     cursor.close()

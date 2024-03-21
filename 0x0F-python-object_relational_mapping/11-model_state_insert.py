@@ -6,10 +6,14 @@ from model_state import Base, State
 import sys
 
 
-def main(user, password, db):
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: {} username password database_name".format(sys.argv[0]))
+        sys.exit(1)
+
     engine = create_engine(
             'mysql+mysqldb://{}:{}@localhost/{}'.format(
-                user, password, db), pool_pre_ping=True)
+                sys.argv[1], sys.argv[2], sys.argv[3]))
 
     Session = sessionmaker(bind=engine)
 
@@ -24,7 +28,3 @@ def main(user, password, db):
     print(new_state.id)
 
     session.close()
-
-
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])

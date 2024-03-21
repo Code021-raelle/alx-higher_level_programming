@@ -7,24 +7,22 @@ from model_city import City
 import sys
 
 
-def main(user, password, db):
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: {} username password database_name".format(sys.argv[0]))
+        sys.exit(1)
+
     engine = create_engine(
             'mysql+mysqldb://{}:{}@localhost/{}'.format(
-                user, password, db), pool_pre_ping=True)
+                sys.argv[1], sys.argv[2], sys.argv[3]))
 
     Session = sessionmaker(bind=engine)
 
     session = Session()
 
-    states = session.query(State).join(City).order_by(City.id).all()
+    cities = session.query(State, City).filter(State.id == City.state_id).order_by(City.id).all()
 
-    for state in states:
-        print(state.name + ":")
-        for city in state.cities:
-            print("({}) {}".format(city.id, city.name))
+    for state, city in cities:
+            print("{}: {}".format(state.name, city))
 
     session.close()
-
-
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
