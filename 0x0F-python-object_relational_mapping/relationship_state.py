@@ -17,6 +17,3 @@ class State(Base):
     name = Column(String(128), nullable=False)
     cities = relationship(
             "relationship_city.City", backref="state", cascade="all, delete")
-
-    def __str__(self):
-        return "{}".format(self.name)
