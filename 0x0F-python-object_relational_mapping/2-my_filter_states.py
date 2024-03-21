@@ -28,7 +28,8 @@ if __name__ == "__main__":
 
     # Use format to create the SQL query with the user input
     cursor.execute(
-            "SELECT * FROM states WHERE name = %s ORDER BY id ASC", (state_name,))
+            "SELECT * FROM states WHERE name = %s ORDER BY id ASC",
+            (state_name,))
 
     # Fetch all the rows
     rows = cursor.fetchall()
