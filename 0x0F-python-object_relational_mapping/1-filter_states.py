@@ -7,10 +7,10 @@ import MySQLdb
 import sys
 
 
-def main(user, password, db):
+if __name__ == "__main__":
     # Connect to the database
     db = MySQLdb.connect(
-            host="localhost", port=3306, user=user, passwd=password, db=db)
+            host="localhost", port=3306, user=argv[1], passwd=argv[2], db=argv[3])
     cursor = db.cursor()
 
     # Execute the query to select all states with names starting "N"
@@ -25,7 +25,3 @@ def main(user, password, db):
 
     # Close the database connection
     db.close()
-
-
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
