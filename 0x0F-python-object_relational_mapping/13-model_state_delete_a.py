@@ -7,25 +7,21 @@ import sys
 
 
 def main(user, password, db):
-    # Create an engine that stores data in the local directory's
     engine = create_engine(
-            'mysql+mysqldb://{}:{}@localhost/{}'.format(
+            'mysql+mysqldb://{}:{}@locahost/ {}'.format(
                 user, password, db), pool_pre_ping=True)
 
-    # Create a configured "Session" class
     Session = sessionmaker(bind=engine)
 
-    # Create a Session
     session = Session()
 
-    # Query the states table
-    states = session.query(State).order_by(State.id).all()
+    state = session.query(State).filter(State.name.contains('a')).all()
 
-    # Print each state
     for state in states:
-        print("{}: {}".format(state.id, state.name))
+        session.delete(state)
 
-    # Close the session
+    session.commit()
+
     session.close()
 
 

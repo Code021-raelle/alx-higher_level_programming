@@ -2,32 +2,27 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from model_state import Base, State
+from relationship_state import State
+from relationship_city import City
 import sys
 
 
 def main(user, password, db):
-    # Create an engine that stores data in the local directory's
     engine = create_engine(
             'mysql+mysqldb://{}:{}@localhost/{}'.format(
                 user, password, db), pool_pre_ping=True)
 
-    # Create a configured "Session" class
     Session = sessionmaker(bind=engine)
 
-    # Create a Session
     session = Session()
 
-    # Query the states table for the first state
-    state = session.query(State).order_by(State.id).first()
+    states = session.query(State).join(City).order_by(State.id, City.id).all()
 
-    # Check if a state was found
-    if state is None:
-        print("Nothing")
-    else:
+    for state in states:
         print("{}: {}".format(state.id, state.name))
+        for city in state.cities:
+            print("\t{}: {}".format(city.id, city.name))
 
-    # Class the session
     session.close()
 
 
