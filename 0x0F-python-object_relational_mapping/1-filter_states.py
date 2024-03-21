@@ -14,7 +14,7 @@ def main(user, password, db):
     cursor = db.cursor()
 
     # Execute the query to select all states with names starting "N"
-    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY states.id ASC")
 
     # Fetch all the rows
     results = cursor.fetchall()
