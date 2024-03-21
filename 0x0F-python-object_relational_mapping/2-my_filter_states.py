@@ -9,7 +9,9 @@ import sys
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
-        print("Usage: {} username password database_name state_name".format(sys.argv[0]))
+        print(
+                "Usage: {} username password database_name state_name"
+                .format(sys.argv[0]))
         sys.exit(1)
 
     # Retrieve command line arguments
@@ -29,10 +31,10 @@ if __name__ == "__main__":
     cursor.execute(query, (state_name,))
 
     # Fetch all the rows
-    rows = cursor.fetchall()
+    row = cursor.fetchone()
 
     # Print each row
-    for row in rows:
+    if row:
         print(row)
 
     # Close the database connection
