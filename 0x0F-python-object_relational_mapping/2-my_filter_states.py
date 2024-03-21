@@ -33,10 +33,10 @@ if __name__ == "__main__":
             (state_name,))
 
     # Fetch all the rows
-    row = cursor.fetchone()
+    rows = cursor.fetchall()
 
     # Print each row
-    if row:
+    for row in rows:
         print(row)
 
     # Close the database connection
