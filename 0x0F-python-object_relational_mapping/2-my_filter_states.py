@@ -7,10 +7,14 @@ import MySQLdb
 import sys
 
 
-def main(user, password, db, state_name):
+if __name__ == "__main__":
+    if len(sys.argv) != 5:
+        print("Usage: {} username password database_name state_name".format(sys.argv[0]))
+        sys.exit(1)
     # Connect to the database
     db = MySQLdb.connect(
-            host="localhost", port=3306, user=user, passwd=password, db=db)
+            host="localhost", port=3306,
+            user=username, passwd=password, db=database_name)
     cursor = db.cursor()
 
     # Use format to create the SQL query with the user input
@@ -18,15 +22,12 @@ def main(user, password, db, state_name):
     cursor.execute(query, (state_name,))
 
     # Fetch all the rows
-    results = cursor.fetchall()
+    rows = cursor.fetchall()
 
     # Print each row
-    for row in results:
+    for row in rows:
         print(row)
 
     # Close the database connection
+    cursor.close()
     db.close()
-
-
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
