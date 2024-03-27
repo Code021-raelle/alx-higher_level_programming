@@ -28,6 +28,7 @@ def find_peak(list_of_integers):
     # Check if the found peak is indeed a peek
     if low == 0 or low == len(list_of_integers) - 1:
         return list_of_integers[low]
-    if list_of_integers[low] > list_of_integers[low - 1] and list_of_integers[low] > list_of_integers[low + 1]:
+    if list_of_integers[low] > list_of_integers[low - 1] and
+    list_of_integers[low] > list_of_integers[low + 1]:
         return list_of_integers[low]
     return None
