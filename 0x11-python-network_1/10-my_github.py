@@ -9,7 +9,7 @@ import sys
 
 
 if __name__ == "__main__":
-    username = 'Code021-raelle'
+    username = 'username'
     password = 'passwd'
 
     response = requests.get('https://api.github.com/user',
