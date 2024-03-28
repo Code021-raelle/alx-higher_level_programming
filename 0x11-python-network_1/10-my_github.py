@@ -10,7 +10,7 @@ import sys
 
 if __name__ == "__main__":
     username = 'Code021-raelle'
-    password = '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'
+    password = 'password'
 
     response = requests.get('https://api.github.com/user',
             auth=(username, password))
