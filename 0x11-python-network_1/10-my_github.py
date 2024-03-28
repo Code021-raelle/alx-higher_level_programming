@@ -9,8 +9,8 @@ import sys
 
 
 if __name__ == "__main__":
-    username = 'username'
-    password = ""
+    username = sys.argv[1]
+    password = sys.argv[2]
 
     response = requests.get('https://api.github.com/user',
             auth=(username, password))
