@@ -9,15 +9,17 @@ import sys
 
 
 if __name__ == "__main__":
-    q = sys.argv[1] if len(sys.argv) > 1 else ""
+    letter = sys.argv[1] if len(sys.argv) > 1 else ""
+    
+    params = {"q": letter}
 
+    response = requests.post(
+            'https://0.0.0.0:5000/search_user', params=params)
     try:
-        response = requests.post(
-                'https://0.0.0.0:5000/search_user', data={'q': q})
         json_data = response.json()
 
         if json_data:
-            print("[{}] {}".format(json_data['id'], json_data['name']))
+            print(f"[{json_data['id']}] {json_data['name']}")
         else:
             print("No result")
     except ValueError:
