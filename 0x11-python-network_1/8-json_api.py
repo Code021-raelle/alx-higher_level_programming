@@ -9,14 +9,11 @@ import sys
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        q = ""
-    else:
-        q = sys.argv[1]
+    q = sys.argv[1] if len(sys.argv) > 1 else ""
 
+    try:
         response = requests.post(
                 'https://0.0.0.0:5000/search_user', data={'q': q})
-    try:
         json_data = response.json()
 
         if json_data:
