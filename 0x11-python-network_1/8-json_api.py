@@ -14,9 +14,9 @@ if __name__ == "__main__":
     else:
         q = sys.argv[1]
 
-    try:
         response = requests.post(
                 'https://0.0.0.0:5000/search_user', data={'q': q})
+    try:
         json_data = response.json()
 
         if json_data:
